@@ -6,7 +6,6 @@ export const Product = () => {
   const [loading, setLoading] = useState(false);
   const [searchInput, setSearchInput] = useState();
 
-  //const obj = { searchText: "" };
 
   // fetching product
   useEffect(() => {
@@ -30,7 +29,6 @@ export const Product = () => {
       })
       .then((data) => {
         setProducts(data.results);
-        console.log("fetched data: ", data);
         setLoading(false);
       });
   }, [searchInput]);
@@ -45,20 +43,15 @@ export const Product = () => {
       </div>
   ))
 
-  /** fetching the search product */
-  //const filterProduct = products.filter(product =>  <Card key={product.id} product={product.name} />); 
- 
-  //ends search product here
   
   return (
     <div>
-      <h2>Product</h2>
+      <h1>Product Overview</h1>
       <div>
       <input
                 type="text"
-                id="searchProduct"
                 value={searchInput}
-                placeholder="Search your product here"
+                placeholder="Search your product"
                 onChange={(e) => setSearchInput(e.target.value)}
             />
       </div>
