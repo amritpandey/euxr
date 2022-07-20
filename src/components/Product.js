@@ -4,50 +4,46 @@ import spinner from "./Spinner.gif";
 export const Product = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [searchInput, setSearchInput] = useState();
+  const [searchInput, setSearchInput] = useState('');
 
-
-  // fetching product
-  useEffect(() => {
-    setLoading(true);
-
-    fetch(
-      `https://pfp-public-productdb-api.azurewebsites.net/api/product/search`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ searchText: searchInput }),
-      }
-    )
-      .then((response) => {
-        if (response.ok) {
-          return response.json();
+    useEffect(() => {
+        setLoading(true);
+        fetch(
+        `https://pfp-public-productdb-api.azurewebsites.net/api/product/search`,
+        {
+            method: "POST",
+            headers: {
+            "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ searchText: searchInput }),
         }
-        throw response;
-      })
-      .then((data) => {
-        setProducts(data.results);
-        setLoading(false);
-      });
-  }, [searchInput]);
+        )
+        .then((response) => {
+            if (response.ok) {
+            return response.json();
+            }
+            throw response;
+        })
+        .then((data) => {
+            setProducts(data.results);
+            setLoading(false);
+        });
+    }, [searchInput]);
 
-  const product = products.map((prod) => (
-    <div className="individualProduct">
+  const product = products.map((product) => (
+    <div className="singleProduct">
        <img
-    src={`https://pfp-public-productdb-api.azurewebsites.net/api/picture/${prod.id}`}
+    src={`https://pfp-public-productdb-api.azurewebsites.net/api/picture/${product.id}`}
     alt="product-img"
   />  
-  <h4>{prod.name}</h4>
+  <h4>{product.name}</h4>
       </div>
   ))
 
-  
   return (
     <div>
       <h1>Product Overview</h1>
-      <div>
+      <div className="search-input">
       <input
                 type="text"
                 value={searchInput}
